@@ -13,6 +13,7 @@
 		6AEE37752B3D5D3C00137264 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AEE37732B3D5D3C00137264 /* Main.storyboard */; };
 		6AEE37772B3D5D3E00137264 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AEE37762B3D5D3E00137264 /* Assets.xcassets */; };
 		6AEE377A2B3D5D3E00137264 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AEE37782B3D5D3E00137264 /* LaunchScreen.storyboard */; };
+		6AEE37822B3D5EAF00137264 /* 200x100.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6AEE37812B3D5EAF00137264 /* 200x100.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		6AEE37762B3D5D3E00137264 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6AEE37792B3D5D3E00137264 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6AEE377B2B3D5D3E00137264 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6AEE37812B3D5EAF00137264 /* 200x100.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 200x100.mp4; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,12 +61,21 @@
 				6AEE376D2B3D5D3C00137264 /* AppDelegate.swift */,
 				6AEE376F2B3D5D3C00137264 /* SceneDelegate.swift */,
 				6AEE37712B3D5D3C00137264 /* ViewController.swift */,
+				6AEE37832B3D75AF00137264 /* Videos */,
 				6AEE37732B3D5D3C00137264 /* Main.storyboard */,
 				6AEE37762B3D5D3E00137264 /* Assets.xcassets */,
 				6AEE37782B3D5D3E00137264 /* LaunchScreen.storyboard */,
 				6AEE377B2B3D5D3E00137264 /* Info.plist */,
 			);
 			path = PiPlayground;
+			sourceTree = "<group>";
+		};
+		6AEE37832B3D75AF00137264 /* Videos */ = {
+			isa = PBXGroup;
+			children = (
+				6AEE37812B3D5EAF00137264 /* 200x100.mp4 */,
+			);
+			path = Videos;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,6 +137,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6AEE377A2B3D5D3E00137264 /* LaunchScreen.storyboard in Resources */,
+				6AEE37822B3D5EAF00137264 /* 200x100.mp4 in Resources */,
 				6AEE37772B3D5D3E00137264 /* Assets.xcassets in Resources */,
 				6AEE37752B3D5D3C00137264 /* Main.storyboard in Resources */,
 			);
@@ -300,6 +312,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -328,6 +341,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
