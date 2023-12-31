@@ -15,10 +15,6 @@ class Configuration: ObservableObject {
         case h3x1
         case h3x2
         case h4x3
-        
-        var url: URL! {
-            return Bundle.main.url(forResource: self.rawValue, withExtension: "mp4")
-        }
     }
     
     @Published var text: String = "PlaceHolder"
@@ -28,12 +24,23 @@ class Configuration: ObservableObject {
     @Published var fontSize: CGFloat = 30
     @Published var scale: Scale = .h3x1
     @Published var autoScroll: Bool = false
+    @Published var scrollProgress: CGFloat = 0
+    @Published var serverAddress = "0.0.0.0"
+    @Published var serverPort = 59090
+    
+    @Published var isRunning = false
+    @Published var isPipMode = false
+    
+    
 }
+
+
 
 
 struct ContentView: View {
     
-    var onStart: () -> Void
+    var startPip: () -> Void
+    var startServer: () -> Void
     
     @EnvironmentObject var configuration: Configuration
     
@@ -55,7 +62,7 @@ struct ContentView: View {
                 
                 Group {
                     Text("自定义样式").font(.title)
-
+                    
                     HStack {
                         Text("显示比例")
                         Picker("显示比例", selection: $configuration.scale) {
@@ -66,7 +73,7 @@ struct ContentView: View {
                         .pickerStyle(.segmented)
                         .padding(.horizontal)
                     }
-
+                    
                     HStack {
                         Text("字体大小")
                         Slider(value: $configuration.fontSize, in: 10...100, step: 1)
@@ -74,14 +81,14 @@ struct ContentView: View {
                         Text("\(Int(configuration.fontSize))").frame(width: 50)
                     }
                     
-
+                    
                     HStack {
                         Text("滚动速度")
                         Slider(value: $configuration.speed, in: 1...100, step: 1)
                             .padding(.horizontal)
                         Text("\(Int(configuration.speed))").frame(width: 50)
                     }
-
+                    
                     HStack {
                         Text("文字颜色")
                         Spacer()
@@ -91,9 +98,9 @@ struct ContentView: View {
                         Rectangle()
                             .fill(Color(hex: configuration.textColorHex))
                             .frame(width: 20, height: 20)
-
+                        
                     }
-
+                    
                     HStack {
                         Text("背景颜色")
                         Spacer()
@@ -104,15 +111,44 @@ struct ContentView: View {
                             .fill(Color(hex: configuration.textBackgroundHex))
                             .frame(width: 20, height: 20)
                     }
+                    HStack {
+                        Text("服务器地址")
+                        Spacer()
+                        TextField("Address", text: $configuration.serverAddress)
+                            .textFieldStyle(.roundedBorder)
+                            .padding(.leading)
+                            .disabled(configuration.isRunning)
+                        TextField("Port", text: Binding(get: {
+                            "\(configuration.serverPort)"
+                        }, set: { (value) in
+                            configuration.serverPort = Int(value) ?? 59090
+                        })).disabled(configuration.isRunning)
+                            .textFieldStyle(.roundedBorder)
+                            .frame(width: 80)
+                            .padding(.trailing)
+                    }
                 }
                 .padding()
                 Spacer()
                 HStack {
-                    Button("启动", action: onStart).buttonStyle(.bordered)
+                    if configuration.autoScroll {
+                        Button("停止滚动", action: {
+                            configuration.autoScroll = false
+                        }).buttonStyle(.bordered)
+                    } else {
+                        Button("开始滚动", action: {
+                            configuration.autoScroll = true
+                        }).buttonStyle(.bordered)
+                    }
+                    if !configuration.isRunning {
+                        Button("启动服务器", action: startServer).buttonStyle(.bordered)
+                    }
+                    Button("启动画中画", action: startPip).buttonStyle(.bordered)
                 }
             }
             .padding()
         }
+        .scrollDismissesKeyboard(.immediately)
         .background(Color(white: 0.9))
         .colorScheme(.light)
         .tint(Color.black)

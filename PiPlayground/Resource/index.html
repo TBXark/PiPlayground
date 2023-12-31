@@ -1,0 +1,127 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>PIP</title>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/boltcss/bolt.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            .configSection {
+                display: flex;
+                flex-direction: row;
+                margin-bottom: 10px;
+                align-items: center;
+            }
+        </style>
+    </head>
+    <body >
+        <div id='app' style="display: flex; flex-direction: column; align-items: center; margin: 10px;">
+           
+            <textarea v-model="text" placeholder="Text" style="width: 100%; height: calc(50vh); margin-bottom: 10px;"></textarea>
+            <div>
+                <div class="configSection">
+                    <label style="margin-right: 10px;">文字颜色</label>
+                    <input v-model="textColorHex" type="string" style="margin-right: 10px;">
+                    <input v-model="textColorHex" type="color" :style="{width: '20px', height: '20px', backgroundColor: textColorHex}">
+                </div>
+                <div class="configSection">
+                    <label style="margin-right: 10px;">背景颜色</label>
+                    <input v-model="textBackgroundHex" type="string" style="margin-right: 10px;">
+                    <input v-model="textBackgroundHex" type="color"  :style="{width: '20px', height: '20px', backgroundColor: textBackgroundHex}">
+                </div>
+                <div class="configSection">
+                    <label style="margin-right: 10px;">滚动速度</label>
+                    <input v-model="speed" type="number" style="margin-right: 10px;">
+                </div>
+                <div class="configSection">
+                    <label style="margin-right: 10px;">文字大小</label>
+                    <input v-model="fontSize" type="number" style="margin-right: 10px;">
+                </div>
+            </div>
+            <div>
+                <button @click="toggleAutoScroll" style="margin-right: 10px;">{{autoScroll ? '停止滚动' : '开始滚动'}}</button>
+                <button @click="updateConfig" style="margin-right: 10px;">保存配置</button>
+            </div>
+            
+        </div>
+        
+    </body>
+    <script>
+        const { createApp, ref, onMounted } = Vue
+     
+        
+        createApp({
+            setup() {
+                const text = ref(null)
+                const textColorHex = ref(null)
+                const textBackgroundHex = ref(null)
+                const speed = ref(null)
+                const fontSize = ref(null)
+                const autoScroll = ref(null)
+                const scrollProgress = ref(0)
+
+                async function toggleAutoScroll() {
+                    autoScroll.value = !autoScroll.value
+                    await updateConfig()
+                }
+
+                async function updateConfig() {
+                    const resp = await fetch('/update', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            text: text.value,
+                            textColorHex: textColorHex.value?.replace('#', ''),
+                            textBackgroundHex: textBackgroundHex.value?.replace('#', ''),
+                            speed: speed.value,
+                            fontSize: fontSize.value,
+                            autoScroll: autoScroll.value,
+                            scrollProgress: scrollProgress.value
+                        })
+                    })
+                    const data = await resp.json()
+                    text.value = data.text
+                    textColorHex.value = data.textColorHex
+                    textBackgroundHex.value = data.textBackgroundHex
+                    speed.value = data.speed
+                    fontSize.value = data.fontSize
+                    autoScroll.value = data.autoScroll
+                    scrollProgress.value = data.scrollProgress
+                }
+
+                // function subWsConfigStatus() {
+                //     const ws = new WebSocket('ws://' + window.location.host + '/status')
+                //     ws.onmessage = async (event) => {
+                //         const data = JSON.parse(event.data)
+                //         text.value = data.text
+                //         textColorHex.value = data.textColorHex
+                //         textBackgroundHex.value = data.textBackgroundHex
+                //         speed.value = data.speed
+                //         fontSize.value = data.fontSize
+                //         autoScroll.value = data.autoScroll
+                //         scrollProgress.value = data.scrollProgress
+                //     }
+                // }
+
+                onMounted(async () => {
+                   await updateConfig()
+                    // subWsConfigStatus()
+                })
+
+                return {
+                    text,
+                    textColorHex,
+                    textBackgroundHex,
+                    speed,
+                    fontSize,
+                    autoScroll,
+                    scrollProgress,
+                    updateConfig,
+                    toggleAutoScroll
+                }
+            }
+        }).mount('#app')
+    </script>
+</html>
