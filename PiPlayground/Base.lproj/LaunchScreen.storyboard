@@ -4,7 +4,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -16,22 +15,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PIPlayground" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="quH-fe-eAE">
-                                <rect key="frame" x="146" y="428" width="101" height="21"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Dog" translatesAutoresizingMaskIntoConstraints="NO" id="kdX-jn-1Ur">
+                                <rect key="frame" x="76.666666666666686" y="374.66666666666669" width="240" height="128"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="79" id="6hR-Ei-12m"/>
-                                    <constraint firstAttribute="height" constant="21" id="oyE-gp-Dxk"/>
+                                    <constraint firstAttribute="height" constant="128" id="lPZ-7C-AlP"/>
+                                    <constraint firstAttribute="width" constant="240" id="tAt-K2-ah4"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.0078431372549019607" green="0.42445742064308239" blue="0.88235294117647056" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="quH-fe-eAE" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="fLW-dG-5bX"/>
-                            <constraint firstItem="quH-fe-eAE" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="iqb-OM-gKh"/>
+                            <constraint firstItem="kdX-jn-1Ur" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Uzp-il-bbC"/>
+                            <constraint firstItem="kdX-jn-1Ur" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="w0v-CX-PcQ"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -41,8 +37,6 @@
         </scene>
     </scenes>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="Dog" width="519.33331298828125" height="519"/>
     </resources>
 </document>

@@ -17,9 +17,7 @@
 		6A4893AC2B3EEEB20008CF65 /* Vapor in Frameworks */ = {isa = PBXBuildFile; productRef = 6A4893AB2B3EEEB20008CF65 /* Vapor */; };
 		6A4893AF2B3F04120008CF65 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 6A4893AE2B3F04120008CF65 /* index.html */; };
 		6AEE376E2B3D5D3C00137264 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEE376D2B3D5D3C00137264 /* AppDelegate.swift */; };
-		6AEE37702B3D5D3C00137264 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEE376F2B3D5D3C00137264 /* SceneDelegate.swift */; };
 		6AEE37722B3D5D3C00137264 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEE37712B3D5D3C00137264 /* ViewController.swift */; };
-		6AEE37752B3D5D3C00137264 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AEE37732B3D5D3C00137264 /* Main.storyboard */; };
 		6AEE37772B3D5D3E00137264 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AEE37762B3D5D3E00137264 /* Assets.xcassets */; };
 		6AEE377A2B3D5D3E00137264 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AEE37782B3D5D3E00137264 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -35,9 +33,7 @@
 		6A4893AE2B3F04120008CF65 /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		6AEE376A2B3D5D3C00137264 /* PiPlayground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PiPlayground.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AEE376D2B3D5D3C00137264 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6AEE376F2B3D5D3C00137264 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		6AEE37712B3D5D3C00137264 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		6AEE37742B3D5D3C00137264 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6AEE37762B3D5D3E00137264 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6AEE37792B3D5D3E00137264 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6AEE377B2B3D5D3E00137264 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -84,12 +80,10 @@
 			isa = PBXGroup;
 			children = (
 				6AEE376D2B3D5D3C00137264 /* AppDelegate.swift */,
-				6AEE376F2B3D5D3C00137264 /* SceneDelegate.swift */,
 				6AEE37712B3D5D3C00137264 /* ViewController.swift */,
 				6A1417CC2B3EC2D200003899 /* SettingController.swift */,
 				6A1417D02B3EC30900003899 /* Utils.swift */,
 				6A4893AD2B3F04000008CF65 /* Resource */,
-				6AEE37732B3D5D3C00137264 /* Main.storyboard */,
 				6AEE37762B3D5D3E00137264 /* Assets.xcassets */,
 				6AEE37782B3D5D3E00137264 /* LaunchScreen.storyboard */,
 				6AEE377B2B3D5D3E00137264 /* Info.plist */,
@@ -181,7 +175,6 @@
 				6A1417DA2B3EC33100003899 /* h4x3.mp4 in Resources */,
 				6A1417D82B3EC33100003899 /* h3x2.mp4 in Resources */,
 				6A1417D92B3EC33100003899 /* h2x1.mp4 in Resources */,
-				6AEE37752B3D5D3C00137264 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,7 +188,6 @@
 				6A1417CD2B3EC2D200003899 /* SettingController.swift in Sources */,
 				6AEE37722B3D5D3C00137264 /* ViewController.swift in Sources */,
 				6AEE376E2B3D5D3C00137264 /* AppDelegate.swift in Sources */,
-				6AEE37702B3D5D3C00137264 /* SceneDelegate.swift in Sources */,
 				6A1417D12B3EC30900003899 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -203,14 +195,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		6AEE37732B3D5D3C00137264 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6AEE37742B3D5D3C00137264 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		6AEE37782B3D5D3E00137264 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -351,9 +335,10 @@
 				DEVELOPMENT_TEAM = 2R6AR9B35M;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PiPlayground/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "提词器";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "此应用需要访问本地网络";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -362,7 +347,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.52toys.PiPlayground;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tbxark.piplayground;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -380,9 +365,10 @@
 				DEVELOPMENT_TEAM = 2R6AR9B35M;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PiPlayground/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "提词器";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "此应用需要访问本地网络";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -391,7 +377,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.52toys.PiPlayground;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tbxark.piplayground;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
