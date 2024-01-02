@@ -87,7 +87,7 @@ class ViewController: UIViewController, AVPictureInPictureControllerDelegate, UI
         textView.textColor = configure.textColor.toUIColor()
         textView.backgroundColor = configure.textBackground.toUIColor()
 
-         configure.$text.sink {[weak self] (text) in
+        configure.$text.sink {[weak self] (text) in
              DispatchQueue.main.async {
                  self?.textView.text = text
              }
@@ -119,6 +119,16 @@ class ViewController: UIViewController, AVPictureInPictureControllerDelegate, UI
             self?.startAutoScrollGCDTimer(scroll: autoScroll)
         }.store(in: &sinkStore)
 
+        configure.$scrollProgress.sink {[weak self] (progress) in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                let offset = self.textView.contentSize.height * progress / 100
+                UIView.animate(withDuration: 1, delay: 0, options: .curveLinear) {
+                    self.textView.contentOffset.y = offset
+                }
+            }
+        }.store(in: &sinkStore)
+
         configure.$scale.sink {[weak self] (scale) in
             guard let self = self,
                   let url = Bundle.main.url(forResource: scale.rawValue, withExtension: "mp4") else { return }
@@ -148,44 +158,23 @@ class ViewController: UIViewController, AVPictureInPictureControllerDelegate, UI
             vapor.post("update") {[weak self] (req) -> ConfigurationDataModel in
                 guard let self = self else { return ConfigurationDataModel() }
                 let data = try req.content.decode(ConfigurationDataModel.self)
-                if let text = data.text {
-                    self.configure.text = text
+                let semaphore = DispatchSemaphore(value: 0)
+                DispatchQueue.main.async {
+                    self.configure.set(
+                        text: data.text,
+                        textColor: data.textColorHex.flatMap({ Color(hex: $0) }),
+                        textBackground: data.textBackgroundHex.flatMap({ Color(hex: $0) }),
+                        speed: data.speed,
+                        fontSize: data.fontSize,
+                        autoScroll: data.autoScroll,
+                        scrollProgress: data.scrollProgress
+                    )
+                    semaphore.signal()
                 }
-                if let textColorHex = data.textColorHex {
-                    self.configure.textColor = Color(hex: textColorHex)
-                }
-                if let textBackgroundHex = data.textBackgroundHex {
-                    self.configure.textBackground = Color(hex: textBackgroundHex)
-                }
-                if let speed = data.speed {
-                    self.configure.speed = speed
-                }
-                if let fontSize = data.fontSize {
-                    self.configure.fontSize = fontSize
-                }
-                if let autoScroll = data.autoScroll {
-                    self.configure.autoScroll = autoScroll
-                }
-                if let scrollProgress = data.scrollProgress {
-                    self.configure.scrollProgress = scrollProgress
-                }
+                semaphore.wait()
                 return ConfigurationDataModel.from(self.configure)
             }
-            // vapor.webSocket("status") { (req, ws) in
-            //     let timer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.main)
-            //     timer.schedule(deadline: .now(), repeating: .seconds(1))
-            //     timer.setEventHandler(handler: {
-            //         let data = ConfigurationDataModel.from(self.configure)
-            //         if let jData = try? JSONEncoder().encode(data),
-            //            let jText = String(data: jData, encoding: .utf8) {
-            //             ws.send(jText)
-            //         }
-            //     })
-            //     timer.resume()
-            //     ws.onClose.whenComplete { (_) in
-            //         timer.cancel()
-            //     }
-            // }
+            
             try vapor.start()
         } catch(let e) {
             print(e.localizedDescription)
@@ -201,11 +190,8 @@ class ViewController: UIViewController, AVPictureInPictureControllerDelegate, UI
             currentAutoScrollTimer?.setEventHandler(handler: {[weak self] in
                 print("startAutoScrollGCDTimer handler")
                 guard let self = self else { return }
-                let progress = self.textView.contentOffset.y / self.textView.contentSize.height
+                let progress = (self.textView.contentOffset.y + self.configure.speed * 10) / self.textView.contentSize.height * 100
                 self.configure.scrollProgress = progress
-                UIView.animate(withDuration: 1, delay: 0, options: .curveLinear) {
-                    self.textView.contentOffset.y += 10 * self.configure.speed
-                }
             })
             currentAutoScrollTimer?.resume()
         }

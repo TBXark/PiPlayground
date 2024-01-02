@@ -30,9 +30,58 @@ class Configuration: ObservableObject {
     
     @Published var isRunning = false
     @Published var isPipMode = false
-    
-    
-    
+   
+    func set(
+        text: String? = nil,
+        textColor: Color? = nil,
+        textBackground: Color? = nil,
+        speed: CGFloat? = nil,
+        fontSize: CGFloat? = nil,
+        scale: Scale? = nil,
+        autoScroll: Bool? = nil,
+        scrollProgress: CGFloat? = nil,
+        serverAddress: String? = nil,
+        serverPort: Int? = nil,
+        isRunning: Bool? = nil,
+        isPipMode: Bool? = nil
+    ) {
+        if let text = text {
+            self.text = text
+        }
+        if let textColor = textColor {
+            self.textColor = textColor
+        }
+        if let textBackground = textBackground {
+            self.textBackground = textBackground
+        }
+        if let speed = speed {
+            self.speed = speed
+        }
+        if let fontSize = fontSize {
+            self.fontSize = fontSize
+        }
+        if let scale = scale {
+            self.scale = scale
+        }
+        if let autoScroll = autoScroll {
+            self.autoScroll = autoScroll
+        }
+        if let scrollProgress = scrollProgress {
+            self.scrollProgress = scrollProgress
+        }
+        if let serverAddress = serverAddress {
+            self.serverAddress = serverAddress
+        }
+        if let serverPort = serverPort {
+            self.serverPort = serverPort
+        }
+        if let isRunning = isRunning {
+            self.isRunning = isRunning
+        }
+        if let isPipMode = isPipMode {
+            self.isPipMode = isPipMode
+        }
+    }
 }
 
 
@@ -62,8 +111,6 @@ struct ContentView: View {
                 .padding(.vertical)
                 
                 Group {
-                    Text("自定义样式").font(.title)
-                    
                     HStack {
                         Text("显示比例")
                         Picker("显示比例", selection: $configuration.scale) {
@@ -89,6 +136,13 @@ struct ContentView: View {
                             .padding(.horizontal)
                         Text("\(Int(configuration.speed))").frame(width: 50)
                     }
+
+                    HStack {
+                        Text("滚动进度")
+                        Slider(value: $configuration.scrollProgress, in: 0...100, step: 0.01)
+                            .padding(.horizontal)
+                        Text("\(String(format: "%.2f", configuration.scrollProgress))%").frame(width: 50)
+                    }
                     
                     HStack {
                         Text("文字颜色")
@@ -102,11 +156,13 @@ struct ContentView: View {
                         ColorPicker(configuration.textBackground.toHex(), selection: $configuration.textBackground)
                     }
                     HStack {
-                        Text("服务器地址")
+                        Text("网页控制")
                         Spacer()
-                        TextField("Address", text: $configuration.serverAddress)
-                            .textFieldStyle(.roundedBorder)
-                            .padding(.leading)
+                        Picker("Address", selection: $configuration.serverAddress) {
+                            ForEach(localIPv4Address(), id: \.self) { address in
+                                Text(address).tag(address)
+                            }
+                        }.pickerStyle(.menu)
                             .disabled(configuration.isRunning)
                         TextField("Port", text: Binding(get: {
                             "\(configuration.serverPort)"
