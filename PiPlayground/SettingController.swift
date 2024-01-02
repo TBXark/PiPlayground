@@ -18,8 +18,8 @@ class Configuration: ObservableObject {
     }
     
     @Published var text: String = "PlaceHolder"
-    @Published var textColorHex: String = "FFFFFF"
-    @Published var textBackgroundHex: String = "000000"
+    @Published var textColor = Color.white
+    @Published var textBackground = Color.black
     @Published var speed: CGFloat = 1
     @Published var fontSize: CGFloat = 30
     @Published var scale: Scale = .h3x1
@@ -30,6 +30,7 @@ class Configuration: ObservableObject {
     
     @Published var isRunning = false
     @Published var isPipMode = false
+    
     
     
 }
@@ -51,12 +52,12 @@ struct ContentView: View {
                     TextEditor(text: $configuration.text)
                         .frame(height: 100)
                         .font(.system(size: configuration.fontSize))
-                        .foregroundColor(Color(hex: configuration.textColorHex))
+                        .foregroundColor(configuration.textColor)
                         .scrollContentBackground(.hidden)
                         .background(Color.clear)
                         .padding()
                 }
-                .background(Color(hex: configuration.textBackgroundHex))
+                .background(configuration.textBackground)
                 .cornerRadius(20.0)
                 .padding(.vertical)
                 
@@ -92,24 +93,13 @@ struct ContentView: View {
                     HStack {
                         Text("文字颜色")
                         Spacer()
-                        TextField("文字颜色", text: $configuration.textColorHex)
-                            .textFieldStyle(.roundedBorder)
-                            .padding(.horizontal)
-                        Rectangle()
-                            .fill(Color(hex: configuration.textColorHex))
-                            .frame(width: 20, height: 20)
-                        
+                        ColorPicker(configuration.textColor.toHex(), selection: $configuration.textColor)
                     }
                     
                     HStack {
                         Text("背景颜色")
                         Spacer()
-                        TextField("背景颜色", text: $configuration.textBackgroundHex)
-                            .textFieldStyle(.roundedBorder)
-                            .padding(.horizontal)
-                        Rectangle()
-                            .fill(Color(hex: configuration.textBackgroundHex))
-                            .frame(width: 20, height: 20)
+                        ColorPicker(configuration.textBackground.toHex(), selection: $configuration.textBackground)
                     }
                     HStack {
                         Text("服务器地址")

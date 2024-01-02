@@ -84,8 +84,8 @@ class ViewController: UIViewController, AVPictureInPictureControllerDelegate, UI
         }
         textView.text = configure.text
         textView.font = UIFont.systemFont(ofSize: configure.fontSize)
-        textView.textColor = UIColor(hex: configure.textColorHex)
-        textView.backgroundColor = UIColor(hex: configure.textBackgroundHex)
+        textView.textColor = configure.textColor.toUIColor()
+        textView.backgroundColor = configure.textBackground.toUIColor()
 
          configure.$text.sink {[weak self] (text) in
              DispatchQueue.main.async {
@@ -99,15 +99,15 @@ class ViewController: UIViewController, AVPictureInPictureControllerDelegate, UI
             }
         }.store(in: &sinkStore)
 
-        configure.$textColorHex.sink {[weak self] (textColorHex) in
+        configure.$textColor.sink {[weak self] (c) in
             DispatchQueue.main.async {
-                self?.textView.textColor = UIColor(hex: textColorHex)
+                self?.textView.textColor = c.toUIColor()
             }
         }.store(in: &sinkStore)
 
-        configure.$textBackgroundHex.sink {[weak self] (textBackgroundHex) in
+        configure.$textBackground.sink {[weak self] (c) in
             DispatchQueue.main.async {
-                self?.textView.backgroundColor = UIColor(hex: textBackgroundHex)
+                self?.textView.backgroundColor = c.toUIColor()
             }
         }.store(in: &sinkStore)
 
@@ -152,10 +152,10 @@ class ViewController: UIViewController, AVPictureInPictureControllerDelegate, UI
                     self.configure.text = text
                 }
                 if let textColorHex = data.textColorHex {
-                    self.configure.textColorHex = textColorHex
+                    self.configure.textColor = Color(hex: textColorHex)
                 }
                 if let textBackgroundHex = data.textBackgroundHex {
-                    self.configure.textBackgroundHex = textBackgroundHex
+                    self.configure.textBackground = Color(hex: textBackgroundHex)
                 }
                 if let speed = data.speed {
                     self.configure.speed = speed
@@ -246,8 +246,8 @@ struct ConfigurationDataModel: Content {
     
     static func from(_ c: Configuration) -> ConfigurationDataModel {
         return ConfigurationDataModel(text: c.text,
-                                      textColorHex: c.textColorHex,
-                                      textBackgroundHex: c.textBackgroundHex,
+                                      textColorHex: c.textColor.toHex(),
+                                      textBackgroundHex: c.textBackground.toHex(),
                                       speed: c.speed,
                                       fontSize: c.fontSize,
                                       autoScroll: c.autoScroll,
