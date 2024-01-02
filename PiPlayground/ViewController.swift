@@ -166,6 +166,7 @@ class ViewController: UIViewController, AVPictureInPictureControllerDelegate, UI
                         textBackground: data.textBackgroundHex.flatMap({ Color(hex: $0) }),
                         speed: data.speed,
                         fontSize: data.fontSize,
+                        scale: data.scale.flatMap({ Configuration.Scale(rawValue: $0) }),
                         autoScroll: data.autoScroll,
                         scrollProgress: data.scrollProgress
                     )
@@ -222,6 +223,7 @@ struct ConfigurationDataModel: Content {
         return .json
     }
 
+    var scale: String?
     var text: String?
     var textColorHex: String?
     var textBackgroundHex: String?
@@ -231,13 +233,15 @@ struct ConfigurationDataModel: Content {
     var scrollProgress: CGFloat?
     
     static func from(_ c: Configuration) -> ConfigurationDataModel {
-        return ConfigurationDataModel(text: c.text,
-                                      textColorHex: c.textColor.toHex(),
-                                      textBackgroundHex: c.textBackground.toHex(),
-                                      speed: c.speed,
-                                      fontSize: c.fontSize,
-                                      autoScroll: c.autoScroll,
-                                      scrollProgress: c.scrollProgress
-                                      )
+        return ConfigurationDataModel(
+            scale: c.scale.rawValue,
+            text: c.text,
+            textColorHex: c.textColor.toHex(),
+            textBackgroundHex: c.textBackground.toHex(),
+            speed: c.speed,
+            fontSize: c.fontSize,
+            autoScroll: c.autoScroll,
+            scrollProgress: c.scrollProgress
+          )
     }
 }

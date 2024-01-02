@@ -23,6 +23,16 @@
             style="width: 100%; height: calc(50vh); margin-bottom: 10px;"></textarea>
         <div>
             <div class="configSection">
+                <label style="margin-right: 10px;">屏幕比例</label>
+                <select v-model="scale" style="margin-right: 10px;">
+                    <option value="h1x1">h1x1</option>
+                    <option value="h2x1">h2x1</option>
+                    <option value="h3x1">h3x1</option>
+                    <option value="h3x2">h3x2</option>
+                    <option value="h4x3">h4x3</option>
+                </select>
+            </div>
+            <div class="configSection">
                 <label style="margin-right: 10px;">文字颜色</label>
                 <input v-model="textColorHex" type="string" style="margin-right: 10px;">
                 <input v-model="textColorHex" type="color"
@@ -65,6 +75,7 @@
 
     createApp({
         setup() {
+            const scale = ref(null)
             const text = ref(null)
             const textColorHex = ref(null)
             const textBackgroundHex = ref(null)
@@ -88,6 +99,7 @@
                     body: JSON.stringify(config)
                 })
                 const data = await resp.json()
+                scale.value = data.scale
                 text.value = data.text
                 textColorHex.value = data.textColorHex
                 textBackgroundHex.value = data.textBackgroundHex
@@ -104,6 +116,7 @@
 
             async function updateConfig() {
                 const cfg = {
+                    scale: scale.value,
                     text: text.value,
                     textColorHex: textColorHex.value,
                     textBackgroundHex: textBackgroundHex.value,
@@ -126,6 +139,7 @@
             })
 
             return {
+                scale,
                 text,
                 textColorHex,
                 textBackgroundHex,
